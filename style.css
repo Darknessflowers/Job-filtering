@@ -1,0 +1,120 @@
+:root {
+  --body-bg-color: #EFFAFA;
+  --job-bg-color: #fff;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  background: var(--body-bg-color);
+  font-family: 'Spartan', sans-serif;
+  margin: 0;
+}
+header {
+  min-height: 156px;
+  background: url(./images/bg-header-desktop.svg) #5CA5A5;
+}
+.container {
+  max-width: 1110px;
+  margin: 0 auto;
+  display: grid;
+  grid-row-gap: 24px;
+}
+.jobList {
+  display: grid;
+  grid-row-gap: 20px;
+}
+.job {
+  background-color: var(--job-bg-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 32px 40px 32px 35px;
+  box-shadow: 0px 15px 20px rgba(13,113,130,0.15);
+  border-radius: 5px;
+}
+.job.featured {
+  border-left: 5px solid #5CA5A5;
+  padding-left: 30px;
+}
+.jobinfo {
+  display: flex;
+}
+.logo {
+  display: flex;
+  margin-right: 25px;
+}
+.jobinfo img {
+  align-self: center;
+  width: auto;
+  height: 88px;
+}
+.jobroles button {
+  background: rgba(92,165,165, 10%);
+  border: none;
+  color: #5CA5A5;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 4px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+.jobroles button:hover {
+  background: rgba(92,165,165, 100%);
+  color: #fff;
+}
+.info h3 {
+  display: inline;
+  font-weight: 700;
+  font-size: 14px;
+  color: #5CA5A5;
+}
+.newlabel {
+  background: #5CA5A5;
+}
+.featuredlabel {
+  background: #000;
+}
+.labels {
+  color: #fff;
+  padding: 8px 8px 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  line-height: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline;
+}
+.labels:not(:last-child) {
+  margin-right: 8px;
+}
+.job ul {
+  display: flex;
+  align-items: center;
+  padding-left: 0;
+  list-style: none;
+  list-style-position: inside;
+  color: #7C8F8F;
+  font-size: 15px;
+  line-height: 15px;
+  margin: 0;
+}
+ul li {
+  vertical-align: middle;
+}
+ul li:not(:last-child)::after {
+  content: "\2022";
+  padding: 0 10px;
+  color: #B7C4C4;
+  font-size: 24px;
+  vertical-align: middle;
+}
+h2 {
+  margin: 11px 0 14px 0;
+  font-size: 18px;
+}
+.jobroles {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
