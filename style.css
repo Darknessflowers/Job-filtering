@@ -20,7 +20,7 @@ header {
   max-width: 90%;
   margin: 0 auto;
   display: grid;
-  grid-row-gap: 24px;
+  grid-row-gap: 0;
 }
 .jobList {
   display: grid;
