@@ -4,8 +4,9 @@ let jobList = document.querySelector('.jobList');
 let filterDisplay = document.querySelector('.filter');
 let filterText;
 let existingFilterArray = [];
+let resetBtn = filterDisplay.querySelector('.clear a');
 
-function displayItems(object) {
+function displayItems(object = jobs) {
   const html = object.map(job =>
 
     `    
@@ -27,6 +28,8 @@ function displayItems(object) {
       </div>
     </div>
     <div class="jobroles">
+    <button data-info="${job.role}">${job.role}</button>
+    <button data-info="${job.level}">${job.level}</button>
     ${job.languages.map(language => `<button data-info="${language}">${language}</button>`).join('')}
     ${job.tools.map(tool => `<button data-info="${tool}">${tool}</button>`).join('')}
     </div>
@@ -36,14 +39,14 @@ function displayItems(object) {
 }
 
 // check if all objects in filterArray are in the languages or tools array from the jobs object
-function isTrue(testArr, objArrLang, objArrTool){
-  return testArr.every(i => objArrLang.includes(i) || objArrTool.includes(i));
+function isTrue(testArr, objArrLang, objArrTool, objRole, objLevel){
+  return testArr.every(i => objArrLang.includes(i) || objArrTool.includes(i) || objRole.includes(i) || objLevel.includes(i));
 }
 
 function updateDisplay() {
   // Update the filter object
   let filtered = jobs.filter(function(job, index, jobs) {
-    return isTrue(existingFilterArray, jobs[index].languages, jobs[index].tools);
+    return isTrue(existingFilterArray, jobs[index].languages, jobs[index].tools, jobs[index].role, jobs[index].level);
   });
   // Display filter object
   displayItems(filtered);
@@ -66,14 +69,9 @@ function addToFilter(filter) {
   } 
   updateDisplay();
 }
-
-function removeFromFilter(e) {
-  // Get the name of the element that is being removed
-  let filterEl = e.target.closest('.filterTag').firstElementChild.innerText;
+function removeItemFromFilter(filterEl) {
+  let indexToRemove = existingFilterArray.indexOf(filterEl);
   let childToRemove = filterDisplay.querySelector(`.${filterEl}`);
-  // Find the index of that element in the filterArray
-  if (e.target.matches('.filter button') || e.target.matches('.filter button img') ) {
-    let indexToRemove = existingFilterArray.indexOf(filterEl);
     // Remove it from the filterArray
     existingFilterArray.splice(indexToRemove, 1);
     // Remove from filterDisplay
@@ -82,16 +80,50 @@ function removeFromFilter(e) {
       filterDisplay.classList.add('hidden');
     }
     updateDisplay();
+}
+function findFilterItem(e) {
+  // let childToRemove = filterDisplay.querySelector(`.${filterEl}`);
+  // Find the index of that element in the filterArray
+  if (e.target.matches('.filter button') || e.target.matches('.filter button img') ) {
+    // Get the name of the element that is being removed
+    let filterEl = e.target.closest('.filterTag').firstElementChild.innerText;
+    removeItemFromFilter(filterEl);
   }
 }
-
+function resetDisplay() {
+  //select all children
+  let filterTags = filterDisplay.querySelectorAll('.filterTag');
+  console.log(filterTags);
+  //remove
+  filterTags.forEach((tag) => {
+    filterDisplay.removeChild(tag);
+  });
+  //reset array
+  existingFilterArray = [];
+  if(existingFilterArray.length === 0) {
+    filterDisplay.classList.add('hidden');
+  }
+  displayItems(jobs);
+}
 // display unfiltered array on page load
 displayItems(jobs);
 // Event Delegation: listen for the click on the job div but then delegate the click over to the button if that is what was clicked
 jobList.addEventListener('click', function(e) {
   const filter = e.target.getAttribute('data-info');
   if (e.target.matches('.jobList button')) {
-    addToFilter(filter);
+    //if element doesn't exist inside array already add it
+    if(!existingFilterArray.includes(filter)){
+      addToFilter(filter);
+    } else {
+      removeItemFromFilter(filter);
+    }
+    // otherwise remove it
+    // TODO: if element clicked on exists in filter array then remove rather than add
   }
 });
-filterDisplay.addEventListener('click', removeFromFilter);
+
+
+// listen on filter display for click on removal button
+filterDisplay.addEventListener('click', findFilterItem);
+
+resetBtn.addEventListener('click', resetDisplay);

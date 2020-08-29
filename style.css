@@ -22,7 +22,8 @@ header {
 }
 .jobList {
   display: grid;
-  grid-row-gap: 20px;
+  grid-row-gap: 24px;
+  margin-bottom: 120px;
 }
 .job {
   background-color: var(--job-bg-color);
@@ -124,11 +125,13 @@ h2 {
   padding: 20px;
   border-radius: 5px;
   transform: translateY(-28px);
+  min-height: 72px;
+  margin-bottom: 4px;
 }
 .filter.hidden {
   visibility: hidden;
 }
-.filter div {
+.filter .filterTag {
   margin-right: 10px;
   background: rgba(95,165,165,0.1);
   color: #5CA5A5;
@@ -150,4 +153,17 @@ h2 {
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+.filter button:hover {
+  background: #2B3939;
+}
+.clear {
+  order: 1;
+  align-self: center;
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 700;
+}
+.clear a {
+  color: #5CA5A5;
 }
