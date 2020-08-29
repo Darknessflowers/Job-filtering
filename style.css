@@ -80,7 +80,7 @@ header {
   background: var(--main-blue-color);
 }
 .featuredlabel {
-  background: #000;
+  background: #2B3939;
 }
 .labels {
   color: var(--job-bg-color);
