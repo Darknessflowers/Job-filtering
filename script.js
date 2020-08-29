@@ -18,8 +18,8 @@ function displayItems(object = jobs) {
       </div>
       <div class="info">
         <h3>${job.company}</h3>
-        ${job.new ? `<p class="labels newlabel">New!</span>` : ``}
-        ${job.featured ? `<p class="labels featuredlabel">Featured</span>` : ``}
+        ${job.new ? `<p class="labels newlabel">New!</p>` : ``}
+        ${job.featured ? `<p class="labels featuredlabel">Featured</p>` : ``}
         <h2>${job.position}</h2>
         <ul>
           <li>${job.postedAt}</li>
