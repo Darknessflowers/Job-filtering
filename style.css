@@ -64,6 +64,7 @@ header {
   border-radius: 4px;
   margin-left: 15px;
   cursor: pointer;
+  line-height: 13px;
 }
 .jobroles button:hover {
   background: rgba(92,165,165, 100%);
