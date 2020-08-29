@@ -79,7 +79,7 @@ function removeItemFromFilter(filterEl) {
     // Remove from filterDisplay
     tagsDisplay.removeChild(childToRemove);
     if(existingFilterArray.length === 0) {
-      tagsDisplay.classList.add('hidden');
+      filterDisplay.classList.add('hidden');
     }
     updateDisplay();
 }
