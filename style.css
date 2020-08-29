@@ -54,16 +54,16 @@ header {
 }
 .jobroles button {
   background: rgba(92,165,165, 10%);
+  font-family: 'Spartan', sans-serif;
   border: none;
   color: var(--main-blue-color);
   font-weight: 700;
   font-size: 13px;
   font-size: 0.8125rem;
-  padding: 9px;
+  padding: 10px;
   border-radius: 4px;
   margin-left: 15px;
   cursor: pointer;
-  letter-spacing: 0.4px;
 }
 .jobroles button:hover {
   background: rgba(92,165,165, 100%);
@@ -166,6 +166,7 @@ h2 {
 }
 .filter button {
   background: var(--main-blue-color);
+  font-family: 'Spartan', sans-serif;
   border: none;
   color: #fff;
   border-top-right-radius: 4px;
