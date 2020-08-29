@@ -1,9 +1,9 @@
 //get the job data
 import { jobs } from './data.js';
-//get the div the jobs will sit in
 let jobList = document.querySelector('.jobList');
-// let jobsBackup = [... jobs];
 let filterDisplay = document.querySelector('.filter');
+let filterText;
+let existingFilterArray = [];
 
 function displayItems(object) {
   const html = object.map(job =>
@@ -34,33 +34,64 @@ function displayItems(object) {
  jobList.innerHTML = html;
 // jobList.dispatchEvent(new CustomEvent('jobsUpdated'));
 }
-displayItems(jobs);
-// jobList.addEventListener('itemsUpdated', displayItems);
 
-let existingFilterArray = [];
+// check if all objects in filterArray are in the languages or tools array from the jobs object
+function isTrue(testArr, objArrLang, objArrTool){
+  return testArr.every(i => objArrLang.includes(i) || objArrTool.includes(i));
+}
+
+function updateDisplay() {
+  // Update the filter object
+  let filtered = jobs.filter(function(job, index, jobs) {
+    return isTrue(existingFilterArray, jobs[index].languages, jobs[index].tools);
+  });
+  // Display filter object
+  displayItems(filtered);
+}
+
 function addToFilter(filter) {
   existingFilterArray.push(filter);
-  // if(existingFilter.length !== 0) {
-  //   existingFilter.push(filter);
-  //   console.log(`new is ${existingFilter}`);
-  // }
-  // TODO: check for existing filter and if it exists filter for both 
-  filterDisplay.classList.remove('hidden');
-// console.log(filter);
-//add to filter
-let filterText = document.createElement("div");
-filterText.classList.add(filter);
-filterText.innerHTML = `<p>${filter}</p><button><img src="./images/icon-remove.svg"></button>`;
-filterDisplay.appendChild(filterText);
-
-const filtered = jobs.filter(job => job.languages.includes(filter) || job.tools.includes(filter));
-console.log(filtered);
-displayItems(filtered);
+  if(filterDisplay.classList.contains('hidden')) {
+    filterDisplay.classList.remove('hidden');
+  }
+  if(existingFilterArray.length) {
+    existingFilterArray.forEach(function(langOrTool) {
+      filterText = document.createElement("div");
+      filterText.classList.add('filterTag');
+      filterText.classList.add(langOrTool);
+      filterText.innerHTML = 
+      `<p>${langOrTool}</p><button><img src="./images/icon-remove.svg"></button>`;
+    });
+    filterDisplay.appendChild(filterText);
+  } 
+  updateDisplay();
 }
-// Event Delegation: We listen for the click on the job div but then delegate the click over to the button if that is what was clicked
+
+function removeFromFilter(e) {
+  // Get the name of the element that is being removed
+  let filterEl = e.target.closest('.filterTag').firstElementChild.innerText;
+  let childToRemove = filterDisplay.querySelector(`.${filterEl}`);
+  // Find the index of that element in the filterArray
+  if (e.target.matches('.filter button') || e.target.matches('.filter button img') ) {
+    let indexToRemove = existingFilterArray.indexOf(filterEl);
+    // Remove it from the filterArray
+    existingFilterArray.splice(indexToRemove, 1);
+    // Remove from filterDisplay
+    filterDisplay.removeChild(childToRemove);
+    if(existingFilterArray.length === 0) {
+      filterDisplay.classList.add('hidden');
+    }
+    updateDisplay();
+  }
+}
+
+// display unfiltered array on page load
+displayItems(jobs);
+// Event Delegation: listen for the click on the job div but then delegate the click over to the button if that is what was clicked
 jobList.addEventListener('click', function(e) {
   const filter = e.target.getAttribute('data-info');
   if (e.target.matches('.jobList button')) {
     addToFilter(filter);
   }
 });
+filterDisplay.addEventListener('click', removeFromFilter);
