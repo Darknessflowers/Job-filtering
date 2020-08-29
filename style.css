@@ -1,6 +1,7 @@
 :root {
   --body-bg-color: #EFFAFA;
   --job-bg-color: #fff;
+  --main-blue-color: #5CA5A5;
 }
 * {
   box-sizing: border-box;
@@ -12,10 +13,11 @@ body {
 }
 header {
   min-height: 156px;
-  background: url(./images/bg-header-desktop.svg) #5CA5A5;
+  background: url(./images/bg-header-desktop.svg) var(--main-blue-color);
 }
 .container {
-  max-width: 1110px;
+  width: 1110px;
+  max-width: 90%;
   margin: 0 auto;
   display: grid;
   grid-row-gap: 24px;
@@ -34,11 +36,12 @@ header {
   border-radius: 5px;
 }
 .job.featured {
-  border-left: 5px solid #5CA5A5;
+  border-left: 5px solid var(--main-blue-color);
   padding-left: 30px;
 }
 .jobinfo {
   display: flex;
+  flex-wrap: wrap;
 }
 .logo {
   display: flex;
@@ -52,9 +55,10 @@ header {
 .jobroles button {
   background: rgba(92,165,165, 10%);
   border: none;
-  color: #5CA5A5;
+  color: var(--main-blue-color);
   font-weight: bold;
   font-size: 13px;
+  font-size: 0.8125rem;
   padding: 10px;
   border-radius: 4px;
   margin-left: 15px;
@@ -68,21 +72,23 @@ header {
   display: inline;
   font-weight: 700;
   font-size: 14px;
+  font-size: 0.875rem;
   color: #5CA5A5;
 }
 .newlabel {
-  background: #5CA5A5;
+  background: var(--main-blue-color);
 }
 .featuredlabel {
   background: #000;
 }
 .labels {
-  color: #fff;
+  color: var(--job-bg-color);
   padding: 8px 8px 4px 8px;
   border-radius: 12px;
   text-transform: uppercase;
   line-height: 14px;
   font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 700;
   display: inline;
 }
@@ -97,6 +103,7 @@ header {
   list-style-position: inside;
   color: #7C8F8F;
   font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 15px;
   margin: 0;
 }
@@ -108,20 +115,29 @@ ul li:not(:last-child)::after {
   padding: 0 10px;
   color: #B7C4C4;
   font-size: 24px;
+  font-size: 1.5rem;
   vertical-align: middle;
 }
 h2 {
   margin: 11px 0 14px 0;
   font-size: 18px;
+  font-size: 1.125rem;
 }
 .jobroles {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  flex-wrap: wrap;
+}
+.tags {
+  min-width: 80%;
+  display: flex;
+  flex-wrap: wrap;
 }
 .filter {
   display: flex;
-  background: #fff;
+  flex-wrap: wrap;
+  background: var(--job-bg-color);
   padding: 20px;
   border-radius: 5px;
   transform: translateY(-28px);
@@ -134,9 +150,10 @@ h2 {
 .filter .filterTag {
   margin-right: 10px;
   background: rgba(95,165,165,0.1);
-  color: #5CA5A5;
+  color: var(--main-blue-color);
   font-weight: 600;
   font-size: 13px;
+  font-size: 0.8125rem;
   display: flex;
   border-radius: 4px;
 }
@@ -145,7 +162,7 @@ h2 {
   margin: 0;
 }
 .filter button {
-  background: #5CA5A5;
+  background: var(--main-blue-color);
   border: none;
   color: #fff;
   border-top-right-radius: 4px;
@@ -158,12 +175,106 @@ h2 {
   background: #2B3939;
 }
 .clear {
-  order: 1;
   align-self: center;
   margin-left: auto;
   font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
 }
 .clear a {
-  color: #5CA5A5;
+  color: var(--main-blue-color);
+}
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  padding: 0 0 10px 0;
+}
+.attribution a {
+  color: hsl(180, 38.7%, 55.9%);
+}
+@media screen and (max-width: 920px) and (min-width: 700px) {
+  .logo {
+    margin-bottom: 20px;
+  }
+  .jobroles {
+    align-content: center;
+  }
+  .jobroles button {
+    margin: 5px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  header {
+    min-height: 156px;
+    background: url(./images/bg-header-mobile.svg) var(--main-blue-color);
+  }
+  h2 {
+    font-size: 15px;
+    font-size: 0.9375rem;
+  }
+  .info h3 {
+    font-size: 13px;
+    font-size: 0.8125rem;
+    margin-right: 15px;
+  }
+  .jobList {
+    grid-row-gap: 48px;
+  }
+  .job {
+    padding: 0 25px 25px 25px;
+  }
+  .job.featured {
+    padding-left: 20px;;
+  }
+  .jobinfo img {
+    height: 48px;
+    margin-bottom: 15px;
+  }
+  .logo img {
+    transform: translateY(-50%);
+    margin-bottom: -14px;
+  }
+  .container {
+    max-width: 100%;
+    padding: 0 25px;
+  }
+  .job {
+    grid-template-columns: 1fr;
+  }
+  .job ul {
+    font-size: 13px;
+    font-size: 0.8125rem;
+    line-height: 13px;
+}
+  .jobroles {
+    justify-content: flex-start;
+  }
+  .jobroles button {
+    margin: 15px 15px 0 0;
+  }
+  .jobinfo {
+    flex-direction: column;
+  }
+  .info {
+    border-bottom: 1px solid #B7C4C4;
+    padding-bottom: 20px;
+  }
+  .clear {
+    text-align: center;
+}
+  .clear a {
+    color: #7C8F8F;
+    text-decoration: none;
+  }
+  .filter {
+    padding-bottom: 4px;
+  }
+  .filterTag {
+    margin-bottom: 16px;
+  }
+  .tags {
+    max-width: 82%;
+    display: flex;
+    flex-wrap: wrap;
+  }
 }

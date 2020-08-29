@@ -2,6 +2,7 @@
 import { jobs } from './data.js';
 let jobList = document.querySelector('.jobList');
 let filterDisplay = document.querySelector('.filter');
+let tagsDisplay = document.querySelector('.tags');
 let filterText;
 let existingFilterArray = [];
 let resetBtn = filterDisplay.querySelector('.clear a');
@@ -65,22 +66,24 @@ function addToFilter(filter) {
       filterText.innerHTML = 
       `<p>${langOrTool}</p><button><img src="./images/icon-remove.svg"></button>`;
     });
-    filterDisplay.appendChild(filterText);
+    tagsDisplay.appendChild(filterText);
   } 
   updateDisplay();
 }
+
 function removeItemFromFilter(filterEl) {
   let indexToRemove = existingFilterArray.indexOf(filterEl);
-  let childToRemove = filterDisplay.querySelector(`.${filterEl}`);
+  let childToRemove = tagsDisplay.querySelector(`.${filterEl}`);
     // Remove it from the filterArray
     existingFilterArray.splice(indexToRemove, 1);
     // Remove from filterDisplay
-    filterDisplay.removeChild(childToRemove);
+    tagsDisplay.removeChild(childToRemove);
     if(existingFilterArray.length === 0) {
-      filterDisplay.classList.add('hidden');
+      tagsDisplay.classList.add('hidden');
     }
     updateDisplay();
 }
+
 function findFilterItem(e) {
   // let childToRemove = filterDisplay.querySelector(`.${filterEl}`);
   // Find the index of that element in the filterArray
@@ -92,11 +95,11 @@ function findFilterItem(e) {
 }
 function resetDisplay() {
   //select all children
-  let filterTags = filterDisplay.querySelectorAll('.filterTag');
+  let filterTags = tagsDisplay.querySelectorAll('.filterTag');
   console.log(filterTags);
   //remove
   filterTags.forEach((tag) => {
-    filterDisplay.removeChild(tag);
+    tagsDisplay.removeChild(tag);
   });
   //reset array
   existingFilterArray = [];
@@ -105,8 +108,10 @@ function resetDisplay() {
   }
   displayItems(jobs);
 }
+
 // display unfiltered array on page load
 displayItems(jobs);
+
 // Event Delegation: listen for the click on the job div but then delegate the click over to the button if that is what was clicked
 jobList.addEventListener('click', function(e) {
   const filter = e.target.getAttribute('data-info');
@@ -124,6 +129,6 @@ jobList.addEventListener('click', function(e) {
 
 
 // listen on filter display for click on removal button
-filterDisplay.addEventListener('click', findFilterItem);
+tagsDisplay.addEventListener('click', findFilterItem);
 
 resetBtn.addEventListener('click', resetDisplay);
